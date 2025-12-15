@@ -1,0 +1,263 @@
+{
+	"info": {
+		"_postman_id": "6e714363-f31b-443a-ab6d-fc6b074892e2",
+		"name": "FidelitySafe",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45940214",
+		"_collection_link": "https://www.postman.com/new-team-1907/workspace/fidelitys-api-test/collection/45940214-6e714363-f31b-443a-ab6d-fc6b074892e2?action=share&source=collection_link&creator=45940214"
+	},
+	"item": [
+		{
+			"name": "Example",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://example.com",
+					"protocol": "http",
+					"host": [
+						"example",
+						"com"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": " {{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"client_email\": \"samuelD2gmail.com\",\r\n  \"client_secret\": \"{{CLIENT_SECRET}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{fid_safe_url}}/auth/login",
+							"host": [
+								"{{fid_safe_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Authentication successful\",\r\n  \"data\": {\r\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mocktoken\",\r\n    \"token_type\": \"Bearer\",\r\n    \"expires_in\": 3600\r\n  }\r\n}\r\n"
+				},
+				{
+					"name": "check profile",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": " Bearer {{ACCESS_TOKEN}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": " {{API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{fid_safe_url}}/customers/profile",
+							"host": [
+								"{{fid_safe_url}}"
+							],
+							"path": [
+								"customers",
+								"profile"
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n  \"status\": \"success\",\r\n  \"data\": {\r\n    \"customerId\": \"CUST1001\",\r\n    \"name\": \"Samuel Dumbiri\",\r\n    \"email\": \"samuelD@gmail.com\",\r\n    \"accountTier\": \"Gold\",\r\n    \"kycStatus\": \"VERIFIED\"\r\n  }\r\n}\r\n"
+				},
+				{
+					"name": "Getting acct bal",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": " Bearer {{ACCESS_TOKEN}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": " {{API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{fid_safe_url}}/accounts/balance",
+							"host": [
+								"{{fid_safe_url}}"
+							],
+							"path": [
+								"accounts",
+								"balance"
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n  \"status\": \"success\",\r\n  \"data\": {\r\n    \"accountNumber\": \"SB-0012345678\",\r\n    \"currency\": \"NGN\",\r\n    \"availableBalance\": 250000.50,\r\n    \"ledgerBalance\": 255000.50\r\n  }\r\n}\r\n"
+				}
+			]
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json()\r",
+							"\r",
+							"pm.environment.set(\"ACCESS_TOKEN\", response.data.access_token)"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": " {{API_KEY}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"client_email\": \"samuelD2gmail.com\",\r\n  \"client_secret\": \"{{CLIENT_SECRET}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{fid_safe_url}}/auth/login",
+					"host": [
+						"{{fid_safe_url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "checking profile",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": " Bearer {{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "x-api-key",
+						"value": " {{API_KEY}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{fid_safe_url}}/customers/profile",
+					"host": [
+						"{{fid_safe_url}}"
+					],
+					"path": [
+						"customers",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetching acct bal",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": " Bearer {{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "x-api-key",
+						"value": " {{API_KEY}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{fid_safe_url}}/accounts/balance",
+					"host": [
+						"{{fid_safe_url}}"
+					],
+					"path": [
+						"accounts",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
