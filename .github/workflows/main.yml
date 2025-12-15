@@ -17,7 +17,7 @@ jobs:
 
       - name: Run API Tests
         run: |
-          newman run Safebank.postman_collection.json \
+          newman run FidelitySafe.postman_collection.json \
           --env-var API_KEY=${{ secrets.API_KEY }} \
           --env-var CLIENT_SECRET=${{ secrets.CLIENT_SECRET }} \
           -r cli,htmlextra \
