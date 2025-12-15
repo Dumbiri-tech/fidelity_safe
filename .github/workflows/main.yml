@@ -1,0 +1,24 @@
+name: fidelitysafe API Tests
+
+on: [push]
+
+jobs:
+  api-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Install Newman HTML Reporter
+        run: npm install -g newman-reporter-htmlextra
+
+      - name: Run API Tests
+        run: |
+          newman run Safebank.postman_collection.json \
+          --env-var API_KEY=${{ secrets.API_KEY }} \
+          --env-var CLIENT_SECRET=${{ secrets.CLIENT_SECRET }} \
+          -r cli,htmlextra \
+          --reporter-htmlextra-export newman-report.html
